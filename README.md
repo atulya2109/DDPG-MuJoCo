@@ -3,8 +3,10 @@
 Deep reinforcement learning implementation for MuJoCo environments, specifically trained on Humanoid-v5.
 
 ## Demo
+<div align="center">
+  <video src="https://github.com/user-attachments/assets/92685f0c-cdde-4b3c-bb98-1c6a2cf01167" width="400" />
+</div>
 
-![Demo Video](videos/ddpg_Humanoid-v5_20251230_013218-episode-0.mp4)
 
 ## Project Evolution
 
