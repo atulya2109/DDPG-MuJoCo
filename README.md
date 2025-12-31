@@ -4,9 +4,8 @@ Deep reinforcement learning implementation for MuJoCo environments, specifically
 
 ## Demo
 <div align="center">
-  <video src="https://github.com/user-attachments/assets/92685f0c-cdde-4b3c-bb98-1c6a2cf01167" width="400" />
+  <video src="https://github.com/user-attachments/assets/ae736f7f-226f-4175-a5cb-d20b20e9e05f" width="400" />
 </div>
-
 
 ## Project Evolution
 
