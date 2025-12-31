@@ -2,8 +2,12 @@ import gymnasium as gym
 import torch
 import numpy as np
 import argparse
+import os
 from lib.agent import DDPGAgent
 from wrapppers import HumanoidPDWrapper
+
+# Set MuJoCo rendering backend to avoid OpenGL context issues on macOS
+os.environ['MUJOCO_GL'] = 'osmesa'
 
 
 def visualize_agent(
