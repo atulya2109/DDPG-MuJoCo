@@ -129,11 +129,7 @@ def train_ddpg(
         avg_mean_reward = np.mean(episode_rewards[-100:])  # Last 100 episodes
         avg_total_reward = np.mean(episode_total_rewards[-100:])  # Last 100 episodes
 
-        # Calculate elapsed time
-        elapsed_hours = (time.time() - start_time) / 3600
-
         writer.add_scalar("Reward/Avg_Total_Reward_100", avg_total_reward, episode)
-        writer.add_scalar("Training/Time_Hours", elapsed_hours, episode)
 
         if training_steps > 0:
             avg_critic_loss = episode_critic_loss / training_steps
