@@ -3,6 +3,7 @@ import torch
 import numpy as np
 import os
 import time
+import argparse
 from tqdm import tqdm
 from torch.utils.tensorboard.writer import SummaryWriter
 from datetime import datetime
@@ -22,10 +23,12 @@ def train_ddpg(
     save_interval=1000,
     log_dir="runs",
     checkpoint_dir="checkpoints",
+    kp=15.0,
+    kd=1.5,
 ):
     # Create environment
     env = gym.make(env_name)
-    env = HumanoidPDWrapper(env, kp=15.0, kd=1.5)
+    env = HumanoidPDWrapper(env, kp=kp, kd=kd)
 
     assert env.observation_space.shape is not None
     assert env.action_space.shape is not None
@@ -220,15 +223,30 @@ def load_checkpoint(agent, filepath):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Train TD3 agent on Humanoid-v5")
+    parser.add_argument("--env", type=str, default="Humanoid-v5", help="Environment name")
+    parser.add_argument("--episodes", type=int, default=100000, help="Number of episodes")
+    parser.add_argument("--max-steps", type=int, default=1000, help="Max steps per episode")
+    parser.add_argument("--batch-size", type=int, default=512, help="Batch size")
+    parser.add_argument("--warmup", type=int, default=10000, help="Warmup steps")
+    parser.add_argument("--device", type=str, default="mps", choices=["mps", "cuda", "cpu"], help="Device to use")
+    parser.add_argument("--save-interval", type=int, default=1000, help="Save checkpoint interval")
+    parser.add_argument("--kp", type=float, default=15.0, help="PD controller proportional gain")
+    parser.add_argument("--kd", type=float, default=1.5, help="PD controller derivative gain")
+
+    args = parser.parse_args()
+
     # Run training
     agent, rewards = train_ddpg(
-        env_name="Humanoid-v5",
-        num_episodes=100000,
-        max_steps=1000,
-        batch_size=512,  # Increased for more stable gradients
-        warmup_steps=10000,
-        device="mps",
-        save_interval=1000,
+        env_name=args.env,
+        num_episodes=args.episodes,
+        max_steps=args.max_steps,
+        batch_size=args.batch_size,
+        warmup_steps=args.warmup,
+        device=args.device,
+        save_interval=args.save_interval,
+        kp=args.kp,
+        kd=args.kd,
     )
 
     # Save final model
