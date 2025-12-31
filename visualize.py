@@ -24,7 +24,7 @@ def visualize_agent(
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
         env = gym.make(env_name, render_mode="rgb_array", width=1920, height=1080)
-        env = HumanoidPDWrapper(env, kp=15.0, kd=1.5)
+        env = HumanoidPDWrapper(env, kp=0.5, kd=0.05)
         # Wrap with video recorder
         env = gym.wrappers.RecordVideo(
             env,
@@ -38,7 +38,7 @@ def visualize_agent(
         print(f"Recording video to: videos/ddpg_{env_name}_{timestamp}-episode-0.mp4")
     else:
         env = gym.make(env_name, render_mode=render_mode, width=1920, height=1080)
-        env = HumanoidPDWrapper(env, kp=15.0, kd=1.5)
+        env = HumanoidPDWrapper(env, kp=0.5, kd=0.05)
 
     assert env.observation_space.shape is not None
     assert env.action_space.shape is not None
@@ -135,7 +135,7 @@ def compare_checkpoints(
         print("-" * 60)
 
         env = gym.make(env_name)
-        env = HumanoidPDWrapper(env, kp=15.0, kd=1.5)
+        env = HumanoidPDWrapper(env, kp=0.5, kd=0.05)
         assert env.observation_space.shape is not None
         assert env.action_space.shape is not None
         obs_dim = env.observation_space.shape[0]

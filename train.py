@@ -23,8 +23,8 @@ def train_ddpg(
     save_interval=1000,
     log_dir="runs",
     checkpoint_dir="checkpoints",
-    kp=15.0,
-    kd=1.5,
+    kp=0.5,
+    kd=0.05,
 ):
     # Create environment
     env = gym.make(env_name)
@@ -228,8 +228,8 @@ if __name__ == "__main__":
     parser.add_argument("--warmup", type=int, default=10000, help="Warmup steps")
     parser.add_argument("--device", type=str, default="mps", choices=["mps", "cuda", "cpu"], help="Device to use")
     parser.add_argument("--save-interval", type=int, default=1000, help="Save checkpoint interval")
-    parser.add_argument("--kp", type=float, default=15.0, help="PD controller proportional gain")
-    parser.add_argument("--kd", type=float, default=1.5, help="PD controller derivative gain")
+    parser.add_argument("--kp", type=float, default=0.5, help="PD controller proportional gain")
+    parser.add_argument("--kd", type=float, default=0.05, help="PD controller derivative gain")
 
     args = parser.parse_args()
 
